@@ -1,0 +1,317 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% block title %}Aarlio{% endblock %}</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background:#f5f6fa;
+}
+
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 30px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    flex-wrap:wrap;
+    gap:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+/* LOGO */
+.logo img{
+    height:42px;
+    width:auto;
+    object-fit:contain;
+}
+
+/* SEARCH BAR */
+.search-form{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.search-form input{
+    padding:10px 14px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    width:230px;
+    background:#f1f1f1;
+    font-size:14px;
+}
+
+.search-form button{
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    background:#6c63ff;
+    color:white;
+    cursor:pointer;
+    font-weight:500;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.search-form button:hover{
+    background:#554ee0;
+}
+
+/* NAV LINKS */
+.nav-links{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:#6c63ff;
+}
+
+.welcome-text{
+    margin-left:20px;
+    font-weight:500;
+    color:#2e2977;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.welcome-text:hover{
+    color:#6c63ff;
+}
+
+/* MAIN CONTENT */
+.main-content{
+    min-height:80vh;
+    padding:20px 30px;
+}
+
+/* FOOTER */
+.footer{
+    background:#111;
+    color:white;
+    padding:25px 0;
+    margin-top:40px;
+}
+
+.footer-content{
+    max-width:1000px;
+    margin:auto;
+    text-align:center;
+}
+
+.footer-content h3{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.footer-content p{
+    font-size:14px;
+}
+
+.footer-links{
+    margin:15px 0;
+}
+
+.footer-links a{
+    color:#ddd;
+    margin:0 10px;
+    text-decoration:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.footer-links a:hover{
+    color:white;
+}
+
+.footer-copy{
+    color:#aaa;
+    font-size:13px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .navbar{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:15px 20px;
+    }
+
+    .search-form{
+        width:100%;
+    }
+
+    .search-form input{
+        width:100%;
+    }
+
+    .nav-links{
+        width:100%;
+        gap:12px;
+    }
+
+    .main-content{
+        padding:15px;
+    }
+
+}
+
+</style>
+
+{% block extra_css %}
+{% endblock %}
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <!-- LOGO -->
+    <div class="logo">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/logo2.png' %}" alt="Aarlio Logo">
+        </a>
+    </div>
+
+    <!-- SEARCH -->
+    <form action="{% url 'search' %}" method="GET" class="search-form">
+
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="Search products..."
+            required
+        >
+
+        <button type="submit">
+            🔍 Search
+        </button>
+
+    </form>
+
+    <!-- NAV LINKS -->
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'display_product' %}">
+            Products
+        </a>
+
+        <a href="{% url 'my_orders' %}">
+            My Orders
+        </a>
+
+        <a href="{% url 'cart' %}">
+            Cart
+        </a>
+
+        <a href="{% url 'wishlist' %}">
+            Wishlist
+        </a>
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+
+        <a href="{% url 'profile' %}" class="welcome-text">
+            👋 {{ request.session.customer_name }}
+        </a>
+    </div>
+
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="main-content">
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <h3>Aarlio</h3>
+
+        <p>
+            Your premium shopping destination 🛍️
+        </p>
+
+        <div class="footer-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'cart' %}">
+                Cart
+            </a>
+
+            <a href="{% url 'wishlist' %}">
+                Wishlist
+            </a>
+
+            <a href="{% url 'my_orders' %}">
+                Orders
+            </a>
+
+            <a href="{% url 'contact' %}">
+                Contact Us
+            </a>
+
+        </div>
+
+        <p class="footer-copy">
+            © 2026 Aarlio. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</body>
+</html>

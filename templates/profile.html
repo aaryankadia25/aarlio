@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+.profile-container{
+    max-width:800px;
+    margin:auto;
+}
+
+.profile-card{
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.profile-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.profile-avatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#6c63ff;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    font-weight:600;
+    margin:auto;
+    margin-bottom:18px;
+    border:4px solid #f3f3f3;
+}
+
+.profile-header h2{
+    margin-bottom:8px;
+    font-size:28px;
+    color:#222;
+}
+
+.profile-header p{
+    color:#777;
+    font-size:15px;
+}
+
+/* INFO GRID */
+.profile-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.info-box{
+    background:#f8f9ff;
+    padding:22px;
+    border-radius:18px;
+    transition:0.3s;
+    border:1px solid #ececff;
+}
+
+.info-box:hover{
+    transform:translateY(-3px);
+}
+
+.info-box h4{
+    color:#777;
+    margin-bottom:10px;
+    font-size:14px;
+    font-weight:500;
+}
+
+.info-box p{
+    font-size:18px;
+    font-weight:600;
+    color:#222;
+    word-break:break-word;
+}
+
+/* BUTTON */
+.edit-btn{
+    display:block;
+    width:220px;
+    margin:35px auto 0;
+    text-align:center;
+    padding:14px;
+    background:linear-gradient(135deg,#6c63ff,#4facfe);
+    color:white;
+    text-decoration:none;
+    border-radius:14px;
+    transition:0.3s;
+    font-weight:500;
+    font-size:16px;
+}
+
+.edit-btn:hover{
+    transform:scale(1.03);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .profile-info{
+        grid-template-columns:1fr;
+    }
+
+    .profile-card{
+        padding:25px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <!-- PROFILE HEADER -->
+        <div class="profile-header">
+
+            {% if customer.profile_photo %}
+
+                <img 
+                    src="{{ customer.profile_photo.url }}" 
+                    class="profile-avatar"
+                >
+
+            {% else %}
+
+                <div class="profile-avatar">
+                    {{ customer.name|first|upper }}
+                </div>
+
+            {% endif %}
+
+            <h2>{{ customer.name }}</h2>
+
+            <p>
+                Welcome to Aarlio 🛍️
+            </p>
+
+        </div>
+
+        <!-- PROFILE INFO -->
+        <div class="profile-info">
+
+            <div class="info-box">
+                <h4>Full Name</h4>
+                <p>{{ customer.user_name }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Email Address</h4>
+                <p>{{ customer.user_email }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Mobile Number</h4>
+                <p>{{ customer.user_mobile }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Customer ID</h4>
+                <p>#{{ customer.id }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Address</h4>
+                <p>{{ customer.address }}</p>
+            </div>
+
+        </div>
+
+        <!-- EDIT BUTTON -->
+        <a href="{% url 'edit_profile' %}" class="edit-btn">
+            ✏️ Edit Profile
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

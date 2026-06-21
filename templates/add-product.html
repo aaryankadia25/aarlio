@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            margin: 0;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #ff3f6c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e7335e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Add Product</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="text" name="productname" placeholder="Product Name" required>
+        <input type="number" name="price" placeholder="Price" required>
+
+        <textarea name="details" placeholder="Description"></textarea>
+
+        <select name="category" required>
+            <option value="">Select Category</option>
+            {% for c in category %}
+                <option value="{{ c.id }}">{{ c.title }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="file" name="image">
+
+        <select name="category" required>
+
+    <option value="">Select Category</option>
+
+    {% for c in category %}
+        <option value="{{ c.id }}">
+            {{ c.title }}
+        </option>
+    {% endfor %}
+
+</select>
+
+        <button type="submit">Add Product</button>
+    </form>
+</div>
+
+</body>
+</html>

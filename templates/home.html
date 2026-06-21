@@ -1,0 +1,413 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block extra_css %}
+
+<!-- SWIPER CSS -->
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<style>
+
+/* HERO SLIDER */
+.hero-slider{
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:35px;
+}
+
+.swiper{
+    width:100%;
+    height:380px;
+    border-radius:20px;
+}
+
+.swiper-slide{
+    position:relative;
+}
+
+.swiper-slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* DARK OVERLAY */
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.overlay h1{
+    font-size:52px;
+    margin-bottom:12px;
+    font-weight:700;
+}
+
+.overlay p{
+    font-size:20px;
+    margin-bottom:18px;
+}
+
+.shop-btn{
+    padding:12px 24px;
+    background:white;
+    color:#111;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.shop-btn:hover{
+    transform:scale(1.05);
+}
+
+/* MAIN LAYOUT */
+.main-wrapper{
+    display:grid;
+    grid-template-columns:250px 1fr;
+    gap:25px;
+}
+
+/* SIDEBAR */
+.sidebar{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    height:fit-content;
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+    font-size:22px;
+    color:#333;
+}
+
+.category-list{
+    list-style:none;
+}
+
+.category-list li{
+    margin-bottom:12px;
+}
+
+.category-list a{
+    display:block;
+    text-decoration:none;
+    background:#f5f6fa;
+    padding:12px;
+    border-radius:10px;
+    color:#333;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.category-list a:hover{
+    background:#6c63ff;
+    color:white;
+}
+
+/* PRODUCTS */
+.products-section h2{
+    margin-bottom:20px;
+    color:#333;
+    font-size:28px;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+/* PRODUCT CARD */
+.product-card{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+}
+
+.product-img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.product-link{
+    text-decoration:none;
+    color:black;
+}
+
+.product-link h3{
+    margin-top:12px;
+    font-size:18px;
+}
+
+.price{
+    color:#ff5e62;
+    font-weight:600;
+    margin:10px 0;
+    font-size:18px;
+}
+
+/* BUTTONS */
+.cart-btn{
+    display:block;
+    text-align:center;
+    padding:10px;
+    background:#6c63ff;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    margin-bottom:8px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.cart-btn:hover{
+    background:#554ee0;
+}
+
+.wishlist-btn{
+    display:block;
+    text-align:center;
+    padding:8px;
+    background:#ff5e62;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.wishlist-btn:hover{
+    background:#e14b50;
+}
+
+/* MOBILE */
+@media(max-width:992px){
+
+    .main-wrapper{
+        grid-template-columns:1fr;
+    }
+
+    .product-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:576px){
+
+    .product-grid{
+        grid-template-columns:1fr;
+    }
+
+    .swiper{
+        height:250px;
+    }
+
+    .overlay h1{
+        font-size:30px;
+    }
+
+    .overlay p{
+        font-size:16px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SLIDER -->
+<div class="hero-slider">
+
+    <div class="swiper mySwiper">
+
+        <div class="swiper-wrapper">
+
+            <!-- SLIDE 1 -->
+            <div class="swiper-slide">
+
+                <img src="{% static 'images/sneaker-banner2.png' %}">
+
+                <div class="overlay">
+                    <h1>Premium Sneakers</h1>
+                    <p>New Streetwear Collection 2026</p>
+
+                    <a href="{% url 'display_product' %}"
+                    class="shop-btn">
+                        Shop Now
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="swiper-slide">
+
+                <img src="{% static 'images/clothing-banner2.png' %}">
+
+                <div class="overlay">
+                    <h1>Luxury Fashion</h1>
+                    <p>Up to 50% OFF on Trending Styles</p>
+
+                    <a href="{% url 'display_product' %}"
+                    class="shop-btn">
+                        Explore
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="swiper-slide">
+
+                <img src="{% static 'images/delivery-banner.png' %}">
+
+                <div class="overlay">
+                    <h1>Fast Delivery</h1>
+                    <p>Premium Products Delivered Quickly</p>
+
+                    <a href="{% url 'display_product' %}"
+                    class="shop-btn">
+                        Start Shopping
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="swiper-pagination"></div>
+
+    </div>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <h2>Categories</h2>
+
+        <ul class="category-list">
+
+            <li>
+                <a href="{% url 'home' %}">
+                    🏠 All Products
+                </a>
+            </li>
+
+            {% for c in categories %}
+
+            <li>
+                <a href="{% url 'category_products' c.id %}">
+                    {{ c.title }}
+                </a>
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="products-section">
+
+        <h2>Trending Products</h2>
+
+        <div class="product-grid">
+
+            {% for p in products %}
+
+            <div class="product-card">
+
+                <a href="{% url 'product_detail' p.id %}"
+                class="product-link">
+
+                    <img src="{{ p.image.url }}"
+                    class="product-img">
+
+                    <h3>{{ p.title }}</h3>
+
+                </a>
+
+                <p class="price">
+                    ₹{{ p.price }}
+                </p>
+
+                <a href="{% url 'add_to_cart' p.id %}"
+                class="cart-btn">
+                    🛒 Add to Cart
+                </a>
+
+                <a href="{% url 'add_to_wishlist' p.id %}"
+                class="wishlist-btn">
+                    ❤️ Add to Wishlist
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- SWIPER JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+
+var swiper = new Swiper(".mySwiper", {
+
+    loop:true,
+
+    autoplay:{
+        delay:3000,
+        disableOnInteraction:false,
+    },
+
+    pagination:{
+        el:".swiper-pagination",
+        clickable:true,
+    },
+
+});
+
+</script>
+
+{% endblock %}

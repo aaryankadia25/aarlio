@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Product Details
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f5f6fa;
+}
+
+/* MAIN CONTAINER */
+.container{
+    max-width:1000px;
+    margin:40px auto;
+    display:flex;
+    gap:40px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* IMAGE */
+.product-img{
+    width:350px;
+    height:400px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+/* DETAILS */
+.product-details{
+    flex:1;
+}
+
+.product-title{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#ff5e62;
+    font-size:28px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.desc{
+    color:#555;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+/* BUTTONS */
+.btn-group{
+    display:flex;
+    gap:15px;
+}
+
+.cart-btn{
+    padding:12px 22px;
+    background:#6c63ff;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.cart-btn:hover{
+    background:#554ee0;
+}
+
+.wishlist-btn{
+    padding:12px 22px;
+    background:#ff5e62;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.wishlist-btn:hover{
+    background:#e14b50;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .product-img{
+        width:100%;
+        height:auto;
+    }
+
+    .btn-group{
+        flex-direction:column;
+    }
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <img src="{{ product.image.url }}" class="product-img">
+
+    <div class="product-details">
+
+        <h2 class="product-title">
+            {{ product.title }}
+        </h2>
+
+        <div class="price">
+            ₹{{ product.price }}
+        </div>
+
+        <p class="desc">
+            {{ product.details }}
+        </p>
+
+        <div class="btn-group">
+
+            <a href="{% url 'add_to_cart' product.id %}" class="cart-btn">
+                🛒 Add to Cart
+            </a>
+
+            <a href="{% url 'add_to_wishlist' product.id %}" class="wishlist-btn">
+                ❤️ Wishlist
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

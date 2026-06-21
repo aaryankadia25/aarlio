@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Wishlist
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+body{
+    background:#f5f6fa;
+}
+
+/* HEADER */
+.page-title{
+    background:linear-gradient(135deg,#ff5e62,#ff9966);
+    color:white;
+    padding:40px 20px;
+    text-align:center;
+}
+
+.page-title h1{
+    font-size:38px;
+}
+
+/* CONTAINER */
+.container{
+    padding:30px;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+/* CARD */
+.card{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+    text-align:center;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.card h3{
+    margin-top:12px;
+}
+
+.price{
+    color:#ff5e62;
+    font-size:18px;
+    font-weight:600;
+    margin:10px 0;
+}
+
+/* BUTTON */
+.btn{
+    display:inline-block;
+    margin-top:10px;
+    background:#ff4d6d;
+    color:white;
+    padding:10px 18px;
+    text-decoration:none;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#e63956;
+}
+
+/* EMPTY */
+.empty-box{
+    background:white;
+    padding:40px;
+    text-align:center;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* MOBILE */
+@media(max-width:992px){
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:576px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- TITLE -->
+<div class="page-title">
+    <h1>My Wishlist🌠</h1>
+    <p>Save your favorite products</p>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+    {% if items %}
+
+    <div class="grid">
+
+        {% for item in items %}
+
+        <div class="card">
+
+            <img src="{{ item.product.image.url }}">
+
+            <h3>{{ item.product.title }}</h3>
+
+            <p class="price">
+                ₹{{ item.product.price }}
+            </p>
+
+            <a href="{% url 'remove_wishlist' item.id %}" class="btn">
+                Remove
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-box">
+        <h2>No items in wishlist ❤️</h2>
+        <p>Add products to your wishlist to see them here.</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
